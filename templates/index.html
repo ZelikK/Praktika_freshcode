@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="uk" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zenith ToDo - Продуктивний менеджер завдань</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/></svg>">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <span>Zenith ToDo</span>
+        </div>
+        <div class="header-actions">
+          <button id="sound-toggle-btn" class="icon-btn" title="Перемкнути звук">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            </svg>
+          </button>
+          <button id="theme-toggle-btn" class="icon-btn" title="Перемкнути тему">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="sidebar-content">
+        <!-- Smart Views (Microsoft To Do style) -->
+        <div>
+          <div class="nav-section-title">Фокус</div>
+          <ul class="nav-list">
+            <li class="nav-item active" data-view="today">
+              <div class="nav-item-left">
+                <span class="nav-item-icon" style="color: #f59e0b;">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                </span>
+                <span>Мій день</span>
+              </div>
+              <span id="badge-today" class="nav-badge">0</span>
+            </li>
+
+            <li class="nav-item" data-view="starred">
+              <div class="nav-item-left">
+                <span class="nav-item-icon" style="color: #ef4444;">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </span>
+                <span>Важливі</span>
+              </div>
+              <span id="badge-starred" class="nav-badge">0</span>
+            </li>
+
+            <li class="nav-item" data-view="upcoming">
+              <div class="nav-item-left">
+                <span class="nav-item-icon" style="color: #3b82f6;">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="16" y2="14"/><line x1="12" y1="17" x2="14" y2="17"/></svg>
+                </span>
+                <span>Заплановані</span>
+              </div>
+              <span id="badge-upcoming" class="nav-badge">0</span>
+            </li>
+
+            <li class="nav-item" data-view="all">
+              <div class="nav-item-left">
+                <span class="nav-item-icon" style="color: #6366f1;">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                </span>
+                <span>Усі завдання</span>
+              </div>
+              <span id="badge-all" class="nav-badge">0</span>
+            </li>
+
+            <li class="nav-item" data-view="completed">
+              <div class="nav-item-left">
+                <span class="nav-item-icon" style="color: #10b981;">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </span>
+                <span>Виконані</span>
+              </div>
+              <span id="badge-completed" class="nav-badge">0</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Custom Lists / Categories (Todoist style) -->
+        <div>
+          <div class="nav-section-title">
+            <span>Списки та проекти</span>
+          </div>
+          <ul id="categories-list" class="nav-list">
+            <!-- Categories injected dynamically -->
+          </ul>
+          <button id="btn-add-category" class="add-list-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Створити список</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sync Status & Dual Persistence info -->
+      <div class="sidebar-footer">
+        <div class="sync-status-badge">
+          <div class="sync-indicator">
+            <span id="sync-dot" class="pulse-dot"></span>
+            <span id="sync-text">SQLite + localStorage</span>
+          </div>
+          <button id="manual-sync-btn" class="btn-sync-now" title="Синхронізувати зараз">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN TASK AREA -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <div class="top-bar-left">
+          <button id="mobile-menu-btn" class="icon-btn menu-toggle">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="view-title-group">
+            <h1 id="current-view-title">Мій день</h1>
+            <div id="current-view-subtitle" class="view-subtitle">Вівторок, 27 жовтня</div>
+          </div>
+        </div>
+
+        <div class="top-bar-right">
+          <div class="search-box">
+            <span class="search-icon">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </span>
+            <input type="text" id="search-input" placeholder="Пошук завдань (натисніть '/')...">
+          </div>
+
+          <select id="sort-select" class="filter-select">
+            <option value="date">За датою</option>
+            <option value="priority">За пріоритетом</option>
+            <option value="title">За алфавітом</option>
+          </select>
+        </div>
+      </header>
+
+      <!-- Quick Add Task Bar -->
+      <section class="quick-add-section">
+        <div class="quick-add-card">
+          <form id="quick-add-form">
+            <input 
+              type="text" 
+              id="quick-task-title" 
+              class="quick-add-input" 
+              placeholder="Додати нове завдання... (натисніть 'Q')"
+              autocomplete="off"
+              required
+            />
+            
+            <div class="quick-add-toolbar">
+              <div class="quick-add-tools">
+                <!-- Due date picker -->
+                <div class="tool-chip" title="Термін виконання">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <input type="date" id="quick-task-date">
+                </div>
+
+                <!-- Priority selector -->
+                <div class="tool-chip" title="Пріоритет (P1-P4)">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                  <select id="quick-task-priority">
+                    <option value="p4">Пріоритет 4 (Звичайний)</option>
+                    <option value="p3">Пріоритет 3 (Низький)</option>
+                    <option value="p2">Пріоритет 2 (Середній)</option>
+                    <option value="p1">Пріоритет 1 (Високий)</option>
+                  </select>
+                </div>
+
+                <!-- Category selector -->
+                <div class="tool-chip" title="Список">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                  <select id="quick-task-category">
+                    <!-- Populated dynamically -->
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-primary">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Додати</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Task List Container -->
+      <section id="tasks-container" class="tasks-container">
+        <!-- Injected dynamically by app.js -->
+      </section>
+    </main>
+
+    <!-- RIGHT DETAIL DRAWER (Microsoft To Do style) -->
+    <aside id="detail-drawer" class="detail-drawer hidden">
+      <div class="drawer-header">
+        <div class="drawer-header-left">
+          <div id="drawer-task-checkbox" class="task-checkbox-wrap" style="cursor:pointer;"></div>
+          <button id="drawer-star-btn" class="task-btn-star" title="Позначити важливим"></button>
+        </div>
+        <button id="close-drawer-btn" class="icon-btn" title="Закрити панель (Esc)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="drawer-content">
+        <!-- Title -->
+        <div class="drawer-field">
+          <label class="drawer-label">Назва завдання</label>
+          <input type="text" id="drawer-title-input" class="drawer-title-input" placeholder="Назва завдання" />
+        </div>
+
+        <!-- Subtasks (Checklist) -->
+        <div class="drawer-field subtasks-section">
+          <label class="drawer-label">Підзавдання (кроки)</label>
+          <ul id="drawer-subtasks-list" class="subtask-list"></ul>
+          <form id="drawer-add-subtask-form" class="add-subtask-form">
+            <input type="text" id="drawer-add-subtask-input" class="add-subtask-input" placeholder="+ Додати крок і натиснути Enter..." />
+          </form>
+        </div>
+
+        <!-- Notes / Description -->
+        <div class="drawer-field">
+          <label class="drawer-label">Нотатки та деталі</label>
+          <textarea id="drawer-notes-input" class="drawer-textarea" placeholder="Додайте детальніший опис завдання..."></textarea>
+        </div>
+
+        <!-- Due Date -->
+        <div class="drawer-field">
+          <label class="drawer-label">Термін виконання</label>
+          <input type="date" id="drawer-date-input" class="drawer-date" />
+        </div>
+
+        <!-- Priority -->
+        <div class="drawer-field">
+          <label class="drawer-label">Пріоритет</label>
+          <select id="drawer-priority-select" class="drawer-select">
+            <option value="p4">Пріоритет 4 (Звичайний)</option>
+            <option value="p3">Пріоритет 3 (Низький)</option>
+            <option value="p2">Пріоритет 2 (Середній)</option>
+            <option value="p1">Пріоритет 1 (Високий)</option>
+          </select>
+        </div>
+
+        <!-- Category -->
+        <div class="drawer-field">
+          <label class="drawer-label">Категорія / Список</label>
+          <select id="drawer-category-select" class="drawer-select">
+            <!-- Dynamically populated -->
+          </select>
+        </div>
+      </div>
+
+      <!-- Drawer Footer -->
+      <div class="drawer-footer">
+        <span id="drawer-meta-created" class="drawer-meta-date">Створено: сьогодні</span>
+        <button id="drawer-delete-btn" class="btn-drawer-delete" title="Видалити завдання">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          <span>Видалити</span>
+        </button>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- ADD CATEGORY MODAL -->
+  <div id="category-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Новий список завдань</h3>
+        <button id="close-cat-modal" class="icon-btn">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <form id="category-form">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 6px;">Назва списку</label>
+            <input type="text" id="new-cat-name" class="drawer-select" placeholder="напр., Проект X, Спорт, Подорожі" required autocomplete="off" />
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 8px;">Колір маркера</label>
+            <div class="color-picker-group">
+              <span class="color-option selected" data-color="#6366f1" style="background: #6366f1;"></span>
+              <span class="color-option" data-color="#ef4444" style="background: #ef4444;"></span>
+              <span class="color-option" data-color="#f59e0b" style="background: #f59e0b;"></span>
+              <span class="color-option" data-color="#10b981" style="background: #10b981;"></span>
+              <span class="color-option" data-color="#3b82f6" style="background: #3b82f6;"></span>
+              <span class="color-option" data-color="#ec4899" style="background: #ec4899;"></span>
+              <span class="color-option" data-color="#8b5cf6" style="background: #8b5cf6;"></span>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+            <button type="button" class="tool-chip" onclick="document.getElementById('category-modal').classList.remove('open')">Скасувати</button>
+            <button type="submit" class="btn-primary">Створити</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- SCRIPTS -->
+  <script src="/static/js/icons.js"></script>
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

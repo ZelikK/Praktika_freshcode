@@ -1,0 +1,111 @@
+{
+  "exported_at": "2026-10-27T15:44:19.999495",
+  "categories": [
+    {
+      "id": "cat-inbox",
+      "name": "Вхідні",
+      "color": "#6366f1",
+      "icon": "inbox"
+    },
+    {
+      "id": "cat-work",
+      "name": "Робота",
+      "color": "#ef4444",
+      "icon": "briefcase"
+    },
+    {
+      "id": "cat-personal",
+      "name": "Особисте",
+      "color": "#10b981",
+      "icon": "user"
+    },
+    {
+      "id": "cat-study",
+      "name": "Навчання",
+      "color": "#f59e0b",
+      "icon": "book-open"
+    },
+    {
+      "id": "cat-shopping",
+      "name": "Покупки",
+      "color": "#8b5cf6",
+      "icon": "shopping-cart"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-welcome-1",
+      "title": "Підготувати звіт для практики Freshcode",
+      "description": "Розробити сучасний ToDo веб-додаток з повною синхронізацією Frontend (localStorage) та Backend (SQLite + JSON).",
+      "completed": false,
+      "starred": true,
+      "priority": "p1",
+      "due_date": "2026-10-27",
+      "category": "Робота",
+      "subtasks": [
+        {
+          "completed": true,
+          "id": "step-1",
+          "title": "Створити REST API на Python/Flask"
+        },
+        {
+          "completed": true,
+          "id": "step-2",
+          "title": "Налаштувати зв’язок з базою SQLite"
+        },
+        {
+          "completed": true,
+          "id": "step-3",
+          "title": "Реалізувати дизайн у стилі Todoist & MS To Do"
+        },
+        {
+          "completed": true,
+          "id": "step-4",
+          "title": "Додати синхронізацію з localStorage"
+        }
+      ],
+      "created_at": "2026-10-27T15:41:31.666089",
+      "updated_at": "2026-10-27T15:41:31.666089",
+      "deleted": false
+    },
+    {
+      "id": "task-welcome-2",
+      "title": "Ознайомитися з інтерфейсом Zenith ToDo",
+      "description": "Натисніть на зірочку, щоб закріпити завдання у важливих. Клікніть на рядок, щоб відкрити бічну панель редагування.",
+      "completed": false,
+      "starred": true,
+      "priority": "p2",
+      "due_date": "2026-10-27",
+      "category": "Навчання",
+      "subtasks": [
+        {
+          "completed": false,
+          "id": "step-2-1",
+          "title": "Спробувати гарячу клавішу Q для швидкого додавання"
+        },
+        {
+          "completed": false,
+          "id": "step-2-2",
+          "title": "Перемкнути темну / світлу тему у верхньому лівому кутку"
+        }
+      ],
+      "created_at": "2026-10-27T15:41:31.666089",
+      "updated_at": "2026-10-27T15:41:31.666089",
+      "deleted": false
+    },
+    {
+      "id": "task-welcome-3",
+      "title": "Спробувати відмітити завдання як виконане",
+      "description": "При виконанні завдання відтворюється мелодійний звуковий ефект успіху (Web Audio API), а завдання закреслюється.",
+      "completed": true,
+      "starred": false,
+      "priority": "p3",
+      "due_date": "",
+      "category": "Особисте",
+      "subtasks": [],
+      "created_at": "2026-10-27T15:41:31.666089",
+      "updated_at": "2026-10-27T15:41:31.666089",
+      "deleted": false
+    }
+  ]
+}
